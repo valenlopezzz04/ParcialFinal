@@ -6,6 +6,7 @@ import com.chat.infrastructure.rest.dto.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,5 +58,23 @@ public class RoomController {
     public String deleteRoom(@PathVariable Long id) {
         roomRepository.deleteById(id);
         return "Room deleted";
+    }
+
+    // Endpoint para control de acceso a públicas/privadas
+    @PostMapping("/{id}/join")
+    public ResponseEntity<String> joinRoom(@PathVariable Long id,
+                                           @RequestParam(required = false) String password) {
+        Room room = roomRepository.findById(id).orElse(null);
+        if (room == null) {
+            return ResponseEntity.badRequest().body("Room not found");
+        }
+        if ("private".equalsIgnoreCase(room.getRoomType())) {
+            if (room.getPasswordHash() == null || password == null ||
+                !BCrypt.checkpw(password, room.getPasswordHash())) {
+                return ResponseEntity.status(403).body("Invalid password for private room");
+            }
+        }
+        // Aquí podrías agregar la lógica de membership en room_members
+        return ResponseEntity.ok("Joined room successfully");
     }
 }
