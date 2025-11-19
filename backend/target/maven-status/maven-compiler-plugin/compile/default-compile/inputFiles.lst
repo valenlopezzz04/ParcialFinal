@@ -1,5 +1,13 @@
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\model\RoomMember.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\repository\UserRepository.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\repository\RoomMemberRepository.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\model\Room.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\security\JwtUtil.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\infrastructure\rest\dto\LoginRequestDto.java
 C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\model\Message.java
 C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\model\User.java
-C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\model\RoomMember.java
 C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\ChatApplication.java
-C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\model\Room.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\controller\AuthController.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\repository\MessageRepository.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\infrastructure\rest\dto\RegisterRequestDto.java
+C:\Users\kenny\OneDrive\Desktop\ParcialFinal\backend\src\main\java\com\chat\domain\repository\RoomRepository.java
