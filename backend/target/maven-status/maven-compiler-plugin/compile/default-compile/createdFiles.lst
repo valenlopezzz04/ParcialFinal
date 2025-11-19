@@ -1,11 +1,13 @@
 com\chat\domain\model\Message.class
-com\chat\domain\repository\RoomRepository.class
-com\chat\domain\model\User.class
 com\chat\domain\model\Room.class
 com\chat\domain\model\RoomMember.class
-com\chat\domain\repository\RoomMemberRepository.class
-com\chat\ChatApplication.class
 com\chat\infrastructure\rest\dto\LoginRequestDto.class
 com\chat\domain\repository\MessageRepository.class
 com\chat\domain\repository\UserRepository.class
+com\chat\infrastructure\rest\dto\RegisterRequestDto.class
+com\chat\domain\repository\RoomRepository.class
+com\chat\domain\model\User.class
+com\chat\controller\AuthController.class
+com\chat\domain\repository\RoomMemberRepository.class
+com\chat\ChatApplication.class
 com\chat\security\JwtUtil.class
