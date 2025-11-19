@@ -14,4 +14,5 @@ com\chat\domain\model\User.class
 com\chat\controller\AuthController.class
 com\chat\domain\repository\RoomMemberRepository.class
 com\chat\ChatApplication.class
+com\chat\config\SecurityConfig.class
 com\chat\security\JwtUtil.class
