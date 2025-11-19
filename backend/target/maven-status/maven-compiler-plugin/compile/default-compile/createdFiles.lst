@@ -1,0 +1,5 @@
+com\chat\domain\model\Message.class
+com\chat\domain\model\User.class
+com\chat\domain\model\Room.class
+com\chat\domain\model\RoomMember.class
+com\chat\ChatApplication.class
