@@ -28,6 +28,28 @@ services:
     networks:
       - chat-network
 
+  backend:
+    build:
+      context: ./backend
+    container_name: chat-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/chatdb
+      SPRING_DATASOURCE_USERNAME: chatuser
+      SPRING_DATASOURCE_PASSWORD: chatpass
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: admin
+      JWT_SECRET: HT9eC8YbT93mP0vS1kL4xB2uD7rQ9zE6
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - chat-network
+
+
 volumes:
   postgres_data:
 
