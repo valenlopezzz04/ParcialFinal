@@ -49,6 +49,22 @@ services:
     networks:
       - chat-network
 
+  websocket:
+    build:
+      context: ./websocket-server
+    container_name: chat-websocket
+    environment:
+      WS_PORT: 3001
+      RABBITMQ_URL: amqp://admin:admin@rabbitmq:5672
+      BACKEND_URL: http://chat-backend:8080
+      JWT_SECRET: HT9eC8YbT93mP0vS1kL4xB2uD7rQ9zE6
+    ports:
+      - "3001:3001"
+    depends_on:
+      - rabbitmq
+      - backend
+    networks:
+      - chat-network
 
 volumes:
   postgres_data:

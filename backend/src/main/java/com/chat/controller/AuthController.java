@@ -38,10 +38,18 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestBody LoginRequestDto request) {
         Optional<User> userOpt = userRepository.findByUsername(request.getUsername());
-        if (userOpt.isPresent() && BCrypt.checkpw(request.getPassword(), userOpt.get().getPasswordHash())) {
-            String jwt = jwtUtil.generateToken(userOpt.get().getUsername());
+
+        if (userOpt.isPresent() &&
+                BCrypt.checkpw(request.getPassword(), userOpt.get().getPasswordHash())) {
+
+            User user = userOpt.get();
+
+            String jwt = jwtUtil.generateToken(user.getId(), user.getUsername());
+
             return jwt;
         }
+
         return "Invalid credentials";
     }
+
 }
