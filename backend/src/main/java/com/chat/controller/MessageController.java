@@ -6,7 +6,7 @@ import com.chat.domain.model.User;
 import com.chat.domain.repository.MessageRepository;
 import com.chat.infrastructure.rest.dto.ErrorResponse;
 import com.chat.infrastructure.rest.dto.MessageDto;
-import com.chat.domain.service.RoomMembershipService;
+import com.chat.service.RoomMembershipService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.chat.domain.service;
+package com.chat.service;
 
 import com.chat.domain.model.Room;
 import com.chat.domain.model.RoomMember;
