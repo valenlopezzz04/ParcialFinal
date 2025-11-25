@@ -6,13 +6,11 @@ Este proyecto está compuesto por tres servicios principales:
 2. **WebSocket Server (Node.js)** – comunicación en tiempo real y distribución de mensajes.  
 3. **Frontend (Vite + React)** – cliente del chat en el navegador.
 
-A continuación se detallan los pasos para ejecutarlo todo localmente y realizar pruebas reales de conversación y carga.
-
 ---
 
 ## 1. Requisitos
 
-Asegúrate de tener instalado:
+Tener instalado:
 
 - **Java 17+**
 - **Maven**
