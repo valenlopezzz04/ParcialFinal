@@ -16,8 +16,7 @@ Tener instalado:
 - **Maven**
 - **Node.js 18+**
 - **npm**
-- **Python 3.9+** (opcional, para simulación)
-- **PostgreSQL** (si no se usa Docker)
+- **Python 3.9+**
 
 ---
 
