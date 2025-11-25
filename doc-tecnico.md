@@ -93,8 +93,8 @@
 - **Framework:** Spring Boot con starter-web, starter-data-jpa, starter-security, starter-amqp.
 - **ORM:** Hibernate 6.3.1.
 - **Base de Datos:** PostgreSQL 15 (Alpine).
-- **Message Broker:** RabbitMQ (futuro, configurado).
-- **Seguridad:** BCrypt para hash de contraseñas, Spring Security (deshabilitado temporalmente en dev).
+- **Message Broker:** RabbitMQ.
+- **Seguridad:** BCrypt para hash de contraseñas, Spring Security .
 - **Construcción:** Maven 3.11.
 
 #### Contenedores - Docker
@@ -147,10 +147,10 @@ Cliente recibe JSON
 - Go/Gin: Performante, pero curva de aprendizaje mayor.
 
 **Consecuencias:**
-- ✅ Rápido prototipado y escalabilidad.
-- ✅ Ecosistema robusto (Spring Data, Security, Cloud).
-- ❌ Overhead inicial y consumo de RAM.
-- ❌ Compilación más lenta vs interpretados.
+-  Rápido prototipado y escalabilidad.
+-  Ecosistema robusto (Spring Data, Security, Cloud).
+-  Overhead inicial y consumo de RAM.
+-  Compilación más lenta vs interpretados.
 
 ---
 
@@ -168,10 +168,10 @@ Cliente recibe JSON
 - SQLite: Insuficiente para concurrencia y escalabilidad.
 
 **Consecuencias:**
-- ✅ Integridad referencial garantizada.
-- ✅ Soporte nativo para índices y optimización.
-- ✅ Migraciones versionadas (Flyway, Liquibase).
-- ❌ Mayor rigidez en esquema vs NoSQL.
+-  Integridad referencial garantizada.
+- Soporte nativo para índices y optimización.
+-  Migraciones versionadas (Flyway, Liquibase).
+-  Mayor rigidez en esquema vs NoSQL.
 
 ---
 
@@ -200,10 +200,10 @@ com.chat
 ```
 
 **Consecuencias:**
-- ✅ Fácil de testear en aislamiento.
-- ✅ Cambios en BD no afectan controllers.
-- ✅ Reutilizable en múltiples contextos.
-- ❌ Más boilerplate inicial.
+-  Fácil de testear en aislamiento.
+-  Cambios en BD no afectan controllers.
+-  Reutilizable en múltiples contextos.
+-  Más boilerplate inicial.
 
 ---
 
@@ -220,10 +220,10 @@ com.chat
 - Argon2: Más robusto, pero overhead mayor; overkill para este contexto.
 
 **Consecuencias:**
-- ✅ Estándar industry para auth.
-- ✅ Resistente a rainbow tables.
-- ✅ Adaptable (work factor aumentable con el tiempo).
-- ❌ Lento (by design, pero OK para login/registro).
+-  Estándar industry para auth.
+-  Resistente a rainbow tables.
+-  Adaptable (work factor aumentable con el tiempo).
+-  Lento (by design, pero OK para login/registro).
 
 ---
 
@@ -241,32 +241,14 @@ com.chat
 - Endpoint de login con credenciales hardcoded: Complejo.
 
 **Consecuencias:**
-- ✅ Desarrollo rápido sin overhead de auth.
-- ❌ **CRÍTICO:** Reactivar en producción.
-- ⚠️ Riesgo de security debt si se olvida.
+-  Desarrollo rápido sin overhead de auth.
+-  **CRÍTICO:** Reactivar en producción.
+-  Riesgo de security debt si se olvida.
 
 **Mitigación:** Documento de checklist pre-producción.
 
----
 
-### ADR-006: RabbitMQ para Event-Driven (Futuro)
 
-**Decisión:** Incluir RabbitMQ en Docker Compose para comunicación asíncrona.
-
-**Contexto:**
-- WebSockets requerirán broadcast eficiente de mensajes.
-- Descoupling entre generador de evento y consumidores.
-- Escalabilidad: Múltiples instancias pueden consumir del mismo queue.
-
-**Alternativas:**
-- Kafka: Más robusto, pero overhead para este caso.
-- Redis Pub/Sub: Más simple, pero no persistent; pérdida de eventos si broker cae.
-
-**Consecuencias:**
-- ✅ Patrón event-driven scalable.
-- ✅ Decoupling de servicios.
-- ❌ Complejidad adicional (topologías, routing, handlers).
-- ⏳ A completar en siguiente fase.
 
 ---
 
@@ -594,56 +576,6 @@ GET /api/rooms/1/messages?page=0&size=20 HTTP/1.1
 
 ---
 
-### 5.5 Endpoints - Users (Futuro)
-
-#### POST /auth/register - Registrarse
-**Request:**
-```http
-POST /api/auth/register HTTP/1.1
-Content-Type: application/json
-
-{
-    "username": "kenny",
-    "email": "kenny@example.com",
-    "password": "SecurePass123!"
-}
-```
-
-**Response 201:**
-```json
-{
-    "id": 1,
-    "username": "kenny",
-    "email": "kenny@example.com",
-    "message": "User registered successfully"
-}
-```
-
----
-
-#### POST /auth/login - Login
-**Request:**
-```http
-POST /api/auth/login HTTP/1.1
-Content-Type: application/json
-
-{
-    "username": "kenny",
-    "password": "SecurePass123!"
-}
-```
-
-**Response 200:**
-```json
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "expiresIn": 3600,
-    "user": {
-        "id": 1,
-        "username": "kenny"
-    }
-}
-```
 
 ---
 
@@ -931,69 +863,13 @@ mvn clean package
 java -jar target/chat-backend-0.0.1-SNAPSHOT.jar
 ```
 
-### 8.3 Checklist Pre-Producción
-
-- [ ] Reactivar Spring Security (deshabilitado en dev).
-- [ ] Implementar JWT para autenticación sin estado.
-- [ ] Configurar HTTPS/SSL en endpoint.
-- [ ] Habilitar CORS solo para dominios permitidos.
-- [ ] Auditar datos sensibles (logs, env vars).
-- [ ] Configurar rate-limiting en endpoints.
-- [ ] Implementar health checks (`/actuator/health`).
-- [ ] Documentar procesos de backup/restauración de BD.
-- [ ] Pruebas de carga y estrés (JMeter, Gatling).
-- [ ] Monitoreo (ELK stack, Prometheus + Grafana).
 
 ---
 
-## 9. Testing (Futuro)
 
-### 9.1 Estrategia de Testing
 
-| Nivel | Herramienta | Cobertura |
-|-------|-------------|-----------|
-| Unit | JUnit 5 + Mockito | Controllers, Services |
-| Integration | @SpringBootTest | Repository + BD |
-| E2E | Postman/RestAssured | Flujos completos |
-| Load | JMeter/Gatling | Rendimiento máx |
 
-### 9.2 Ejemplo: Test de Controller
-
-```java
-@SpringBootTest
-class RoomControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    
-    @Test
-    void testCreateRoom() throws Exception {
-        mockMvc.perform(post("/api/rooms")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content("{\"name\":\"Test\",\"roomType\":\"public\"}"))
-            .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.id").exists());
-    }
-}
-```
-
----
-
-## 10. Matriz de Responsabilidades
-
-| Función | Persona 1 | Persona 2 |
-|---------|-----------|-----------|
-| Backend REST (CRUD) | ✅ 100% | — |
-| Base de Datos | ✅ Setup | ✅ Queries opt. |
-| Seguridad (JWT) | ⚠️ Diseño | ✅ Implementación |
-| WebSockets | — | ✅ 100% |
-| RabbitMQ Integration | ⚠️ Config | ✅ Handlers |
-| Frontend | — | ✅ (Si aplica) |
-| Testing | ⚠️ Unit básicos | ✅ E2E |
-| Documentación | ✅ Parte 1 | ✅ Parte 2 |
-
----
-
-## 11. Glosario
+## 9. Glosario
 
 | Término | Definición |
 |---------|-----------|
@@ -1019,6 +895,5 @@ class RoomControllerTest {
 - [JWT.io](https://jwt.io)
 - [BCrypt Explained](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
 
----
 
 
