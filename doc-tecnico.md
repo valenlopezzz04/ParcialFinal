@@ -1,9 +1,7 @@
 # Documento Técnico: Sistema de Chat en Tiempo Real
 
 **Proyecto:** ParcialFinal - Chat Backend  
-**Fecha:** Noviembre 2025  
-**Versión:** 1.0  
-**Autores:** Persona 1 (Backend REST), Persona 2 (WebSockets/Features Avanzadas)
+**Fecha:** 24 de Noviembre 2025  
 
 ---
 
