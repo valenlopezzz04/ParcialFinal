@@ -1,27 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API = "http://localhost:8080";
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-  e.preventDefault();
+    const handleLogin = async (e) => {
+    e.preventDefault();
 
-  console.log("LOGIN:", username, password);
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
 
-  const token = btoa(JSON.stringify({ username, userId: 1 }));
+    const token = await res.text();
 
-  console.log("TOKEN QUE SE VA A GUARDAR:", token);
+    if (!token || token === "Invalid credentials") {
+      alert("Credenciales inválidas");
+      return;
+    }
 
-  localStorage.setItem("token", token);
-
-  console.log("TOKEN GUARDADO EN STORAGE:", localStorage.getItem("token"));
-
-  navigate("/rooms");
-};
-
+    localStorage.setItem("token", token);
+    navigate("/rooms");
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

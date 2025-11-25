@@ -106,6 +106,10 @@ public class RoomController {
             return ResponseEntity.status(404).body(new ErrorResponse("User not found", 404));
         }
 
+        if (roomMemberRepository.existsByRoomAndUser(room, user)) {
+            return ResponseEntity.ok("User already in room");
+        }
+
         if ("private".equalsIgnoreCase(room.getRoomType())) {
             if (room.getPasswordHash() == null ||
                     password == null ||
@@ -116,9 +120,6 @@ public class RoomController {
             }
         }
 
-        if (roomMemberRepository.existsByRoomAndUser(room, user)) {
-            return ResponseEntity.ok("User already in room");
-        }
 
         RoomMember member = new RoomMember();
         member.setRoom(room);

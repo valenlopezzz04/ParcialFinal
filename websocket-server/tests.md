@@ -11,7 +11,7 @@ Debe retornar un JWT con claims: sub, userId, iat, exp.
 
 ## 2. Conexión WebSocket usando JWT
 
-WS URL: ws://localhost:8081?token=JWT_AQUI
+WS URL: ws://localhost:3001?token=JWT_AQUI
 
 Debe mostrar:
 [WS] Connected → userId=X username=Y
