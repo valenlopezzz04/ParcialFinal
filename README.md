@@ -12,63 +12,78 @@ Este proyecto está compuesto por tres servicios principales:
 
 Tener instalado:
 
-- **Java 17+**
-- **Maven**
-- **Node.js 18+**
-- **npm**
-- **Python 3.9+**
+- Docker
+- Java 17+
+- Maven
+- Node.js 18+
+- npm
 
 ---
 
-## 🗄️ 2. Levantar la base de datos
+## 🗄️ 2. Levantar la base de datos (PostgreSQL)
 
 Con Docker:
 
-```bash
-docker compose up -d
-```
+docker-compose up postgres
+
+---
 
 ## 3. Ejecutar el Backend (Spring Boot)
 
 En una terminal:
 
-```bash
-cd backend
-./mvnw spring-boot:run
-# Windows:
+cd E:\Documents\ParcialFinal\backend
 mvn spring-boot:run
-```
 
 El backend queda disponible el puerto 8080.
 
-## 4. Ejecutar el WebSocket Server (Node.js)
+---
+
+## 4. Ejecutar RabbitMQ + WebSocket Server
+
+### 4.1 Levantar RabbitMQ
+
+docker-compose up rabbitmq
+
+### 4.2 Levantar el WebSocket Server
 
 En otra terminal:
 
-```bash
 cd websocket-server
-npm install
+$env:RABBIT_URL="amqp://admin:admin@localhost:5672"
 npm start
-```
 
-El WebSocket se expone en: ws://localhost:3001/?token=<JWT>
+El WebSocket se expone en:  
+ws://localhost:3001/?token=<JWT>
 
-Ejecutar el Frontend (Vite)
+---
+
+## 5. Ejecutar el Frontend (Vite)
 
 En otra terminal:
 
-```bash
-cd chat-client
+cd E:\Documents\ParcialFinal\chat-client
 npm install
 npm run dev
-```
 
-El frontend estará disponible en: http://localhost:5173
+El frontend estará disponible en:  
+http://localhost:5173
 
-## 4. Crear usuario y obtener token (para login)
+---
+
+## 6. Probar el chat (modo normal)
+
+1. Abre http://localhost:5173  
+2. Inicia sesión con el usuario creado.  
+3. Entra a una sala (por ejemplo room 1).  
+4. Abre otra ventana del navegador, inicia sesión con otro usuario y entra a la misma sala.  
+5. Envía mensajes: verás la actualización en tiempo real.
+
+---
+
+# 7. Para crear usuarios:
 
 Desde Postman:
-
 ```bash
 - Registro
 POST http://localhost:8080/api/auth/register
@@ -79,8 +94,8 @@ Content-Type: application/json
   "password": "123456",
   "email": "mila@example.com"
 }
+bash
 ```
-
 ```bash
 - Login
 POST http://localhost:8080/api/auth/login
@@ -90,30 +105,10 @@ Content-Type: application/json
   "username": "mila",
   "password": "123456"
 }
+bash
 ```
 
-La respuesta contiene un JWT:
-```bash
-{ "token": "<JWT_GENERADO>" }
-```
-
-Este token se usa para iniciar sesión en el frontend, y para conectarse al WebSocket.
-
-## 7. Probar el chat (modo normal)
-
-1. Abre http://localhost:5173
-2. Inicia sesión con el usuario creado.
-3. Entra a una sala (por ejemplo room 1).
-4. Abre otra ventana del navegador, inicia sesión con otro usuario y entra a la misma sala.
-5. Envía mensajes: verás la actualización en tiempo real.
-
-# Usuarios utilizados:
-
-username: milazro
-password: 1234
-
-username: geny
-password: 4556
+---
 
 ## 8. Ejecutar el script de simulación de carga.
 
