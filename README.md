@@ -156,11 +156,5 @@ Se verá algo como
 
 [metrics] connected=29/30 sent=300 echoes=295 errors=0 lat_mean_ms=180.4 lat_p95_ms=420.7
 
-========= RESUMEN PoC ========= 
-- Usuarios objetivo: 30 
-- Conectados OK:     29  
-- Latencia p95:      420 ms 
-- Violaciones SLO<850ms: 0% 
-
 
 Esto permite evaluar la estabilidad del WebSocket bajo carga.
